@@ -42,6 +42,13 @@ public class EventService {
 
         events.stream().distinct().forEach(event -> {
             event.setTitle(event.getTitle() + " [" + event.getBands().size() + "]");
+            Set<Band> bandSet = event.getBands().stream().map(band -> {
+                Band updateBand = new Band();
+                updateBand.setMembers(band.getMembers());
+                updateBand.setName(band.getName() + " [" + band.getMembers().size() + "]");
+                return updateBand;
+            }).collect(Collectors.toSet());
+            event.setBands(bandSet);
         });
 
         return events;

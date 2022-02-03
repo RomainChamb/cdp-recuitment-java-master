@@ -173,7 +173,7 @@ public class EventServiceTest {
         band2.setMembers(memberSet2);
 
         Band band3 = new Band();
-        band3.setName("Band 1");
+        band3.setName("Band 3");
         band3.setMembers(memberSet3);
 
         Set<Band> bandSet1 = new HashSet<>();
@@ -212,5 +212,76 @@ public class EventServiceTest {
 
         // then
         Assertions.assertEquals(0, filteredEvents.size());
+    }
+
+    @Test
+    public void shouldUpdateEventTitle() {
+        //given
+        Member member1 = new Member();
+        member1.setName("Jean");
+
+        Member member2 = new Member();
+        member2.setName("Paul");
+
+        Member member3 = new Member();
+        member3.setName("Odile");
+
+        Set<Member> memberSet1 = new HashSet<>();
+        memberSet1.add(member1);
+
+        Set<Member> memberSet2 = new HashSet<>();
+        memberSet2.add(member2);
+
+        Set<Member> memberSet3 = new HashSet<>();
+        memberSet3.add(member3);
+
+        Band band1 = new Band();
+        band1.setName("Band 1");
+        band1.setMembers(memberSet1);
+
+        Band band2 = new Band();
+        band2.setName("Band 2");
+        band2.setMembers(memberSet2);
+
+        Band band3 = new Band();
+        band3.setName("Band 3");
+        band3.setMembers(memberSet3);
+
+        Set<Band> bandSet1 = new HashSet<>();
+        bandSet1.add(band1);
+
+        Set<Band> bandSet2 = new HashSet<>();
+        bandSet2.add(band2);
+
+        Set<Band> bandSet3 = new HashSet<>();
+        bandSet3.add(band3);
+
+        Event event1 = new Event();
+        event1.setId(1L);
+        event1.setTitle("Event1");
+        event1.setBands(bandSet1);
+
+        Event event2 = new Event();
+        event2.setId(2L);
+        event2.setTitle("Event2");
+        event2.setBands(bandSet2);
+
+        Event event3 = new Event();
+        event3.setId(3L);
+        event3.setTitle("Event3");
+        event3.setBands(bandSet3);
+
+        List<Event> events = new ArrayList<>();
+        events.add(event1);
+        events.add(event2);
+        events.add(event3);
+
+        Mockito.when(eventRepositoryMock.findAllBy()).thenReturn(events);
+
+        // when
+        List<Event> filteredEvents = eventService.getFilteredEvents("Jean");
+
+        // then
+        Assertions.assertEquals("Event1 [1]", filteredEvents.get(0).getTitle());
     }
 }

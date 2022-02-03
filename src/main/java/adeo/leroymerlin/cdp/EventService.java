@@ -3,6 +3,8 @@ package adeo.leroymerlin.cdp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import adeo.leroymerlin.BandDTO;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +39,10 @@ public class EventService {
         events.removeIf(event -> event.getBands().stream()
         .allMatch(band -> band.getMembers().stream()
         .allMatch(member -> !member.getName().contains(query))));
+
+        events.stream().distinct().forEach(event -> {
+            event.setTitle(event.getTitle() + " [" + event.getBands().size() + "]");
+        });
 
         return events;
     }

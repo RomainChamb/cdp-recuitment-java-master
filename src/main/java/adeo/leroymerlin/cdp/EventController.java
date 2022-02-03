@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/events")
+@RequestMapping("/api")
 public class EventController {
 
     private final EventService eventService;
@@ -16,22 +16,22 @@ public class EventController {
         this.eventService = eventService;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "events/", method = RequestMethod.GET)
     public List<Event> findEvents() {
         return eventService.getEvents();
     }
 
-    @RequestMapping(value = "/search/{query}", method = RequestMethod.GET)
+    @RequestMapping(value = "search/{query}", method = RequestMethod.GET)
     public List<Event> findEvents(@PathVariable String query) {
         return eventService.getFilteredEvents(query);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "events/{id}", method = RequestMethod.DELETE)
     public void deleteEvent(@PathVariable Long id) {
         eventService.delete(id);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "events/{id}", method = RequestMethod.PUT)
     public void updateEvent(@PathVariable Long id, @RequestBody Event event) {
         eventService.updateEvent(id, event);
     }

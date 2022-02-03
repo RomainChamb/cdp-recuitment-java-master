@@ -33,9 +33,11 @@ public class EventService {
 
     public List<Event> getFilteredEvents(String query) {
         List<Event> events = eventRepository.findAllBy();
+
         events.removeIf(event -> event.getBands().stream()
-        .anyMatch(band -> band.getMembers().stream()
-        .anyMatch(member -> !member.getName().contains(query))));
+        .allMatch(band -> band.getMembers().stream()
+        .allMatch(member -> !member.getName().contains(query))));
+
         return events;
     }
 

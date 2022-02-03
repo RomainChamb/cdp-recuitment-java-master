@@ -139,7 +139,7 @@ public class EventServiceTest {
         List<Event> filteredEvents = eventService.getFilteredEvents("Je");
 
         // then
-        Assertions.assertEquals(1, filteredEvents.size());
+        Assertions.assertEquals(event1, filteredEvents.get(0));
 
     }
 
@@ -212,6 +212,5 @@ public class EventServiceTest {
 
         // then
         Assertions.assertEquals(0, filteredEvents.size());
-
     }
 }
